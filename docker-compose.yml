@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Production build
+  docker-log-viewer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker-log-viewer-prod
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    networks:
+      - docker-log-viewer-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.docker-log-viewer.rule=Host(`localhost`)"
+      - "traefik.http.services.docker-log-viewer.loadbalancer.server.port=80"
+
+  # Development build
+  docker-log-viewer-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: docker-log-viewer-dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=8080
+    restart: unless-stopped
+    networks:
+      - docker-log-viewer-network
+    profiles:
+      - dev
+
+networks:
+  docker-log-viewer-network:
+    driver: bridge
