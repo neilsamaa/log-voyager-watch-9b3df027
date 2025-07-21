@@ -52,6 +52,16 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				log: {
+					background: 'hsl(var(--log-background))',
+					foreground: 'hsl(var(--log-foreground))',
+					error: 'hsl(var(--log-error))',
+					warning: 'hsl(var(--log-warning))',
+					info: 'hsl(var(--log-info))',
+					debug: 'hsl(var(--log-debug))',
+					timestamp: 'hsl(var(--log-timestamp))',
+					container: 'hsl(var(--log-container))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
